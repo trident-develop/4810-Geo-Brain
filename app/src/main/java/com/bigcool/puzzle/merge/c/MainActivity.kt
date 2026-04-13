@@ -1,0 +1,52 @@
+package com.bigcool.puzzle.merge.c
+
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import com.bigcool.puzzle.merge.c.data.PrefsManager
+import com.bigcool.puzzle.merge.c.ui.GeoBrainApp
+import com.bigcool.puzzle.merge.c.ui.theme.DeepNavy
+import com.bigcool.puzzle.merge.c.ui.theme.GeoBrainTheme
+import com.bigcool.puzzle.merge.c.ui.theme.MidnightBlue
+import androidx.compose.foundation.layout.Box
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+
+
+class MainActivity : ComponentActivity() {
+    private var controller: WindowInsetsControllerCompat? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+        super.onCreate(savedInstanceState)
+        controller = WindowInsetsControllerCompat(window, window.decorView)
+        controller?.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        controller?.hide(WindowInsetsCompat.Type.systemBars())
+        enableEdgeToEdge()
+
+        val prefs = PrefsManager(applicationContext)
+
+        setContent {
+            GeoBrainTheme {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            Brush.verticalGradient(
+                                listOf(DeepNavy, MidnightBlue, DeepNavy)
+                            )
+                        )
+                ) {
+                    GeoBrainApp(prefs = prefs)
+                }
+            }
+        }
+    }
+}

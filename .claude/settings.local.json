@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew :app:compileDebugKotlin)",
+      "Bash(./gradlew :app:assembleDebug)",
+      "Bash(adb devices:*)",
+      "Bash(adb -s emulator-5554 logcat -d -b crash)",
+      "Bash(./gradlew :app:dependencies --configuration debugRuntimeClasspath)",
+      "Bash(adb -s emulator-5554 install -r /Users/anna/AndroidStudioProjects/GeoBrain/app/build/outputs/apk/debug/app-debug.apk)",
+      "Bash(adb -s emulator-5554 logcat -c)",
+      "Bash(adb -s emulator-5554 shell am start -n com.bigcool.puzzle.merge.c/.MainActivity)"
+    ]
+  }
+}
